@@ -7,12 +7,17 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { ShoppingCart, Star } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import toast from 'react-hot-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProductDetail() {
   const params = useParams();
   const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', params.id],
@@ -21,7 +26,10 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart(product);
-    toast.success('Added to cart!');
+    toast({
+      title: "Added to cart!",
+      description: `${product.title} has been added to your cart.`,
+    });
   };
 
   if (isLoading) {
@@ -99,13 +107,14 @@ export default function ProductDetail() {
               </p>
             </div>
 
-            <button
+            <Button
               onClick={handleAddToCart}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg flex items-center justify-center gap-2 transition"
+              className="w-full"
+              size="lg"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="w-5 h-5 mr-2" />
               Add to Cart
-            </button>
+            </Button>
           </div>
         </div>
       </main>

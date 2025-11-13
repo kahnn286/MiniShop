@@ -3,17 +3,23 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import Link from 'next/link';
-import toast from 'react-hot-toast';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, total } = useCart();
+  const { toast } = useToast();
 
   const handleRemove = (id) => {
     removeFromCart(id);
-    toast.success('Removed from cart');
+    toast({
+      title: "Removed from cart",
+      description: "Item has been removed from your cart.",
+    });
   };
 
   const handleQuantityChange = (id, currentQuantity, change) => {
@@ -33,12 +39,11 @@ export default function CartPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-8">
               Add some products to get started!
             </p>
-            <Link
-              href="/"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition"
-            >
-              Continue Shopping
-            </Link>
+            <Button asChild size="lg">
+              <Link href="/">
+                Continue Shopping
+              </Link>
+            </Button>
           </div>
         </main>
         <Footer />
@@ -128,12 +133,11 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <Link
-                href="/checkout"
-                className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg text-center transition"
-              >
-                Proceed to Checkout
-              </Link>
+              <Button asChild className="w-full">
+                <Link href="/checkout">
+                  Proceed to Checkout
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

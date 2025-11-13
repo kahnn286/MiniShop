@@ -77,8 +77,13 @@ export default function CheckoutPage() {
     }, 1500);
   };
 
+  useEffect(() => {
+    if (cart.length === 0) {
+      router.push('/cart');
+    }
+  }, [cart, router]);
+
   if (cart.length === 0) {
-    router.push('/cart');
     return null;
   }
 
