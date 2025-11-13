@@ -36,4 +36,12 @@ yarn-error.log*
 next-env.d.ts
 
 # json
-*.jsonc
+/.eslintrc.json
+/.gitignore
+/components.json
+/jsconfig.json
+/next.config.mjs
+/package-lock.json
+/package.json
+/postcss.config.mjs
+/tailwind.config.js
